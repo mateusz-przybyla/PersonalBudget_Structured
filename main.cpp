@@ -62,6 +62,7 @@ string checkPreviousYear(string date);
 string calculateHowManyDaysPerPreviousMonth(string date);
 string readStartDate(char choice);
 string readEndDate(char choice);
+void checkOrderOfEnteredDates(string &startDate, string &endDate);
 
 //transaction-related functions
 int loadIncomesFromFile(vector <Transaction> &incomes, int idOfLoggedInUser);
@@ -519,6 +520,22 @@ string readEndDate(char choice)
     return endDate;
 }
 
+void checkOrderOfEnteredDates(string &startDate, string &endDate)
+{
+    int startDateInt = 0, endDateInt = 0;
+    string helper = "";
+
+    startDateInt = mergeDateWithoutDashes(startDate);
+    endDateInt = mergeDateWithoutDashes(endDate);
+
+    if (startDateInt > endDateInt)
+    {
+        helper = startDate;
+        startDate = endDate;
+        endDate = helper;
+    }
+}
+
 int loadIncomesFromFile(vector <Transaction> &incomes, int idOfLoggedInUser)
 {
     CMarkup xml;
@@ -805,6 +822,7 @@ void showFinanseBalance(vector <Transaction> incomes, vector <Transaction> expen
 
     startDate = readStartDate(choice);
     endDate = readEndDate(choice);
+    checkOrderOfEnteredDates(startDate, endDate);
 
     system("cls");
     if ((!incomes.empty()) || (!expenses.empty()))
