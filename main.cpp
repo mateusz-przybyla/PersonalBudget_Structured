@@ -38,14 +38,16 @@ string readLine();
 int readInteger();
 char readChar();
 double readDouble();
-string readNumber(string text, int signPosition);
 
 //conversion-related functions
-double roundDouble(double number);
-string replaceCommaWithDot(string text);
 string convertIntToString(int number);
 int convertStringToInt(string number);
 double convertStringToDouble(string number);
+
+//auxiliary functions
+double roundDouble(double number);
+string replaceCommaWithDot(string text);
+string readNumber(string text, int signPosition);
 
 //time-related functions
 string readTodaysDate();
@@ -76,7 +78,7 @@ int addIncome(vector <Transaction> &incomes, int idOfLastIncome, int idOfLoggedI
 int addExpense(vector <Transaction> &expenses, int idOfLastExpense, int idOfLoggedInUser);
 double sumTransactions(int startDate, int endDate, vector <Transaction> transactions);
 void showTransactionData(Transaction transaction);
-bool sortTransactions(Transaction transaction1, Transaction transaction2);
+bool sortCondition(Transaction transaction1, Transaction transaction2);
 void selectSortedTransactions(int startDate, int endDate, vector <Transaction> transactions);
 void showFinanseBalance(vector <Transaction> incomes, vector <Transaction> expenses, char choice);
 
@@ -799,14 +801,14 @@ void showTransactionData(Transaction transaction)
     cout << transaction.amount << "|";
 }
 
-bool sortTransactions(Transaction transaction1, Transaction transaction2)
+bool sortCondition(Transaction transaction1, Transaction transaction2)
 {
     return (transaction1.date < transaction2.date);
 }
 
 void selectSortedTransactions(int startDate, int endDate, vector <Transaction> transactions)
 {
-    sort(transactions.begin(), transactions.end(), sortTransactions);
+    sort(transactions.begin(), transactions.end(), sortCondition);
 
     for (vector <Transaction>::iterator itr = transactions.begin(); itr != transactions.end(); itr++)
     {
