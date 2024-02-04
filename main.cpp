@@ -411,15 +411,25 @@ int readSelectedTransactionDate()
 
 string readPreviousMonth(string date)
 {
-    int month = 0;
-    month = convertStringToInt(readMonth(date));
+    string month = "";
+    string monthsTable[12] = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 
-    if ((month >= 2) && (month <= 12))
-        month -= 1;
-    else if (month == 1)
-        month = 12;
+    month = readMonth(date);
 
-    return convertIntToString(month);
+    for (int i = 0; i < 12; i++)
+    {
+        if (month == monthsTable[0])
+        {
+            month = monthsTable[11];
+            break;
+        }
+        else if (month == monthsTable[i])
+        {
+            month =  monthsTable[i - 1];
+            break;
+        }
+    }
+    return month;
 }
 
 string checkPreviousYear(string date)
